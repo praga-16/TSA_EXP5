@@ -23,68 +23,50 @@ import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.tsa.seasonal import seasonal_decompose
 
-# Step 1: Load the dataset
-data = pd.read_csv('AirPassengers.csv')
+# Load the dataset
+file_path = 'Gold Price Prediction.csv'  # Replace with your actual file path
+data = pd.read_csv(file_path)
 
-# Step 2: Convert 'Month' column to datetime format
-data['Month'] = pd.to_datetime(data['Month'])
+# Display the column names to verify
+print("Column names in the dataset:", data.columns)
 
-# Step 3: Set 'Month' as the index
-data.set_index('Month', inplace=True)
+# Ensure the 'Date' column is in datetime format and set it as the index
+data['Date'] = pd.to_datetime(data['Date'])  # Adjust if your date column is named differently
+data.set_index('Date', inplace=True)
 
-# Step 4: Verify the exact column name
-print(data.columns)
+# Use the correct column name for decomposition
+series = data['Price Today']  # Use 'Price Today' for seasonal decomposition
 
-# Step 5: Perform seasonal decomposition using the correct column name
-decomposition = seasonal_decompose(data['#Passengers'], model='additive')
+# Perform decomposition
+decomposition = seasonal_decompose(series, model='additive', period=12)  # Adjust period as needed
 
-# Step 6: Plot the decomposition
-plt.figure(figsize=(10, 12))  # Adjust the figure size for a square shape
-
-# Original Data
-plt.subplot(411)
-plt.plot(data['#Passengers'], label='Monthly Passengers')
-plt.legend(loc='upper left')
-plt.title('Monthly Passengers')
-
-# Trend Plot
-plt.subplot(412)
-plt.plot(decomposition.trend, label='Trend', color='orange')
-plt.legend(loc='upper left')
-plt.title('Trend Plot')
-
-# Seasonal Plot
-plt.subplot(413)
-plt.plot(decomposition.seasonal, label='Seasonal', color='green')
-plt.legend(loc='upper left')
-plt.title('Seasonal Plot')
-
-# Residual Plot
-plt.subplot(414)
-plt.plot(decomposition.resid, label='Residual', color='red')
-plt.legend(loc='upper left')
-plt.title('Residual Plot')
-
-plt.tight_layout()
+# Plotting the decomposition
+plt.figure(figsize=(12, 8))
+decomposition.plot()
+plt.suptitle('Seasonal Decomposition of Time Series', fontsize=16)
 plt.show()
+
+# Display overall results
+trend = decomposition.trend
+seasonal = decomposition.seasonal
+residual = decomposition.resid
+
+print("Trend Component:")
+print(trend.dropna().head())  # Display first few values of the trend
+print("\nSeasonal Component:")
+print(seasonal.dropna().head())  # Display first few values of the seasonal
+print("\nResidual Component:")
+print(residual.dropna().head())  # Display first few values of the residual
+
 ```
 # OUTPUT:
 
 PLOTTING THE DATA:
-
-![Untitled](https://github.com/user-attachments/assets/0facd4d3-b25f-49ef-99bc-d75d0aff53b1)
-
 TREND PLOT REPRESENTATION :
-
-![Untitled](https://github.com/user-attachments/assets/a639f4fe-cbfd-4de9-8e80-302be3d6f3fc)
-
 SEASONAL PLOT REPRESENTATION :
-
-![Untitled](https://github.com/user-attachments/assets/119b5e78-453a-4a2c-8152-2160e91097d8)
-
 RESIDUAL PLOT :
 
-![Untitled](https://github.com/user-attachments/assets/256c2db1-4d50-4de7-be67-f69541e3cef8)
+![image](https://github.com/user-attachments/assets/b6e239cc-4370-4319-8f1d-735e5905d4b8)
 
 
 ### RESULT:
