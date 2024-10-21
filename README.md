@@ -3,7 +3,7 @@
 
 
 ### AIM:
-To Illustrates how to perform time series analysis and decomposition on the monthly average temperature of a city/country and for airline passengers.
+To Illustrates how to perform time series analysis and decomposition on the Gold Price Prediction.
 
 ### ALGORITHM:
 1. Import the required packages like pandas and numpy
@@ -70,4 +70,4 @@ RESIDUAL PLOT :
 
 
 ### RESULT:
-Thus, we have created the Python code for time series analysis and decomposition of the AirPassengers dataset, effectively extracting the trend, seasonal, and residual components to understand long-term growth and cyclical patterns in air travel.
+Thus, we have created the Python code for time series analysis and decomposition of the Gold Price Prediction.
